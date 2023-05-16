@@ -9,7 +9,7 @@ use App\Entity\Article;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article/{id}", name="article_show")
+     * @Route("/article", name="article_show")
      */
     public function show(Article $article)
     {

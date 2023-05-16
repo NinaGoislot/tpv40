@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use App\Entity\Catalogue\Livre;
 use App\Entity\Panier\Panier;
 use App\Entity\Panier\LignePanier;
+use App\Entity\Article;
 
 use Doctrine\ORM\EntityManagerInterface;
 
