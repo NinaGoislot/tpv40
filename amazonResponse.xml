@@ -1,0 +1,497 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+  <OperationRequest>
+    <RequestId>6cc8c167-be5d-45de-90d9-b64fc893421f</RequestId>
+    <Arguments>
+      <Argument Name="Keywords" Value="phonecase"></Argument>
+      <Argument Name="Operation" Value="ItemSearch"></Argument>
+      <Argument Name="ResponseGroup" Value="Offers,ItemAttributes"></Argument>
+      <Argument Name="SearchIndex" Value="Electronics"></Argument>
+      <Argument Name="Service" Value="AWSECommerceService"></Argument>
+      <Argument Name="Timestamp" Value="2023-05-16T08:04:08Z"></Argument>
+      <Argument Name="Version" Value="2009-03-31"></Argument>
+    </Arguments>
+    <RequestProcessingTime>1.8858201503754</RequestProcessingTime>
+  </OperationRequest>
+  <Items>
+    <Request>
+      <IsValid>True</IsValid>
+      <ItemSearchRequest>
+        <Keywords>phonecase</Keywords>
+        <ResponseGroup>Offers</ResponseGroup>
+        <ResponseGroup>ItemAttributes</ResponseGroup>
+        <SearchIndex>electronics</SearchIndex>
+      </ItemSearchRequest>
+    </Request>
+    <Item>
+      <ASIN>B09D339LSQ</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/61699w-K68L._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/61699w-K68L._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/61699w-K68L._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B09D339LSQ</EAN>
+        <EANList>
+          <EANListElement>B09D339LSQ</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>elago Coque Silicone Liquide Compatible avec iPhone 13 Pro Max (6.7&quot;), Case en Silicone Premium, Étui Protection Complète - Cover Antichoc à 3 Structure (Stone)</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1699</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 16,99</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B0BXD9H3YR</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/61F780m7UJL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/61F780m7UJL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/61F780m7UJL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B0BXD9H3YR</EAN>
+        <EANList>
+          <EANListElement>B0BXD9H3YR</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>DOMAVER Coque iPhone 11 6,1&quot; Silicone Liquide Antichoc Protection, Housse iPhone 11 Case avec Douce Doublure en Microfibre AntiRayure Fine Téléphone pour iPhone 11, Vert Militaire</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1295</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 12,95</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B07QQZD49D</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/615XdVHNqaL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/615XdVHNqaL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/615XdVHNqaL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B07QQZD49D</EAN>
+        <EANList>
+          <EANListElement>B07QQZD49D</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>JETech Coque pour iPhone 11 (2019) 6,1&quot;, Anti-Jaunissement Shock-Absorption et Anti-Rayures, Housse Transparente Antichoc (HD Clair)</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>998</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 9,98</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B07GXNFLCW</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/61kmfYvBIAL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/61kmfYvBIAL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/61kmfYvBIAL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B07GXNFLCW</EAN>
+        <EANList>
+          <EANListElement>B07GXNFLCW</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>JETech Coque pour iPhone XR, Anti-Jaunissement Housse Étui 6,1 Pouces, Transparente Anti-Chocs et Anti-Rayures (HD Clair)</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>998</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 9,98</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B091D7JB6X</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/61yypUvimoL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/61yypUvimoL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/61yypUvimoL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B091D7JB6X</EAN>
+        <EANList>
+          <EANListElement>B091D7JB6X</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>Cordking iPhone SE Case 2022/2020, iPhone 7 8 Case, Silicone Ultra Slim Shockproof Phone Case with [Soft Microfiber Lining], 4.7 inch, Clove Purple</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1398</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 13,98</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B0B4KNCXQK</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/61FGhjh3ftL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/61FGhjh3ftL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/61FGhjh3ftL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B0B4KNCXQK</EAN>
+        <EANList>
+          <EANListElement>B0B4KNCXQK</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>Cordking Designed for iPhone 13 Case, iPhone 14 Case, Silicone Ultra Slim Shockproof Protective Phone Case with [Soft Anti-Scratch Microfiber Lining], 6.1 inch, Alpine Green</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1498</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 14,98</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B0B7X6M6W1</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/71bvPqFDxrL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/71bvPqFDxrL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/71bvPqFDxrL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B0B7X6M6W1</EAN>
+        <EANList>
+          <EANListElement>B0B7X6M6W1</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>Kepact Coque pour Nothing Phone 1 Transparent, Case de Téléphone Anti-Chocs Airbag, Cosue de Nothing Phone 1 en Silicone Fin, ne jaunira Pas Cote Transparent Durable avec Protection de la Caméra</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1499</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 14,99</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B0B6N1M2J2</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/51xA1F5xzCL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/51xA1F5xzCL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/51xA1F5xzCL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B0B6N1M2J2</EAN>
+        <EANList>
+          <EANListElement>B0B6N1M2J2</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>elago Coque Silicone Liquide Compatible avec iPhone 14 Étui (6.1”), Coque Silicone Premium, Housse Protection Complète - Case Antichoc à 4 Structure, Microfibre Douce Empêche Rayures (Vert Nuit)</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1799</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 17,99</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B07QS4QG7B</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/71jQkk7FChL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/71jQkk7FChL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/71jQkk7FChL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B07QS4QG7B</EAN>
+        <EANList>
+          <EANListElement>B07QS4QG7B</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>JETech Coque pour iPhone 11 Pro (2019) 5,8&quot;, Anti-Jaunissement Shock-Absorption et Anti-Rayures, Housse Case Cover Transparente Antichoc (HD Clair)</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>998</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 9,98</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+    <Item>
+      <ASIN>B08FQQ4LP9</ASIN>
+      <SmallImage>
+        <URL>https://m.media-amazon.com/images/I/51wdkkmRPRL._SL75_.jpg</URL>
+        <Height Units="pixels">74</Height>
+        <Width Units="pixels">75</Width>
+      </SmallImage>
+      <MediumImage>
+        <URL>https://m.media-amazon.com/images/I/51wdkkmRPRL._SL160_.jpg</URL>
+        <Height Units="pixels">157</Height>
+        <Width Units="pixels">160</Width>
+      </MediumImage>
+      <LargeImage>
+        <URL>https://m.media-amazon.com/images/I/51wdkkmRPRL._SL500_.jpg</URL>
+        <Height Units="pixels">492</Height>
+        <Width Units="pixels">500</Width>
+      </LargeImage>
+      <ItemAttributes>
+        <Binding>Electronics</Binding>
+        <EAN>B08FQQ4LP9</EAN>
+        <EANList>
+          <EANListElement>B08FQQ4LP9</EANListElement>
+        </EANList>
+        <ProductGroup>Electronic</ProductGroup>
+        <Title>ORNARTO Coque Compatible avec iPhone 12 Case 6,1&quot; et iPhone 12 Pro Case,Fine en Caoutchouc Liquid Silicone Cover Protection Bumper Anti-Choc Housse Étui 6,1 Pouces Violet Clair</Title>
+      </ItemAttributes>
+      <OfferSummary>
+        <LowestNewPrice>
+          <Amount>1189</Amount>
+          <CurrencyCode>EUR</CurrencyCode>
+          <FormattedPrice>EUR 11,89</FormattedPrice>
+        </LowestNewPrice>
+        <TotalNew>1</TotalNew>
+        <TotalUsed>0</TotalUsed>
+        <TotalCollectible>0</TotalCollectible>
+        <TotalRefurbished>0</TotalRefurbished>
+      </OfferSummary>
+      <Offers>
+        <TotalOffers>1</TotalOffers>
+        <TotalOfferPages>1</TotalOfferPages>
+        <Offer>
+          <OfferAttributes>
+            <Condition>New</Condition>
+          </OfferAttributes>
+        </Offer>
+      </Offers>
+    </Item>
+  </Items>
+</ItemSearchResponse>
