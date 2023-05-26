@@ -26,11 +26,12 @@
 				</header>
 				<h1>TEST</h1>
 				<div>
-					<h1>{{ article.title }}</h1>
-					<p>{{ article.content }}</p>
-					<p>Category: {{ article.category }}</p>
-					<p>Author: {{ article.author }}</p>
-					<p>Date: {{ article.date|date('Y-m-d') }}</p>
+					<div class="box-title"><h3>{{ article.titre }}</h3></div>
+					<span class="price">
+						<span class="amount">Catégorie</span>
+						<br>
+						<span class="amount">{{ article.prix }} €</span>
+					</span>
 				</div>
 {% endblock %}
 {% block javascripts %}

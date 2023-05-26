@@ -9,10 +9,17 @@ use App\Entity\Article;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article/{id}", name="article_show")
+     * @Route("/article", name="article_show")
      */
-    public function show(Article $article)
+    public function showArticle($id)
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found');
+        }
+
         return $this->render('article.html.twig', [
             'article' => $article,
         ]);

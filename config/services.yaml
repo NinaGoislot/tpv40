@@ -6,6 +6,10 @@
 parameters:
 
 services:
+    App\Controller\ArticleController:
+        tags: ['controller.service_arguments']
+        arguments:
+            $article: '@App\Repository\ArticleRepository'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
