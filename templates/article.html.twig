@@ -26,8 +26,12 @@
 				</header>
 				<h1>TEST</h1>
 				<div>
-					<h1>{{ article.titre }}</h1>
-					<p>{{ article.prixUnitaire }}</p>
+					<div class="box-title"><h3>{{ article.titre }}</h3></div>
+					<span class="price">
+						<span class="amount">Catégorie</span>
+						<br>
+						<span class="amount">{{ article.prix }} €</span>
+					</span>
 				</div>
 {% endblock %}
 {% block javascripts %}
