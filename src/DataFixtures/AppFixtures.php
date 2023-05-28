@@ -20,8 +20,12 @@ use App\Entity\Catalogue\Article;
 
 class AppFixtures extends Fixture
 {
+
+
     public function load(ObjectManager $manager): void
     {
+		$evaluationsFilePath = './data/evaluation.json';
+
 		if (count($manager->getRepository("App\Entity\Catalogue\Article")->findAll()) == 0) {
 			$conf = new GenericConfiguration();
 			$client = new Client();
@@ -174,49 +178,76 @@ class AppFixtures extends Fixture
 			//-------------------------------------------------------------------------------------------------------------
 
 			$conf = new GenericConfiguration();
-			$client = new Client();
-			$request = new GuzzleRequestWithoutKeys($client);
+            $client = new Client();
+            $request = new GuzzleRequestWithoutKeys($client);
 
-			try {
-				$conf
-					->setCountry('fr')
-					->setRequest($request) ;
-			} catch (\Exception $e) {
-				echo $e->getMessage();
-			}
-			$apaiIO = new ApaiIO($conf);
-			$search = new AmazonSearch();
-			$search->setCategory('Electronics');
-			$keywords = 'phonecase' ;
-			
-			$search->setKeywords($keywords);
-			
-			$search->setResponseGroup(array('Offers','ItemAttributes','Images'));
+            $evaluationData = [];
 
-			$formattedResponse = $apaiIO->runOperation($search);
-			file_put_contents("amazonResponse.xml",$formattedResponse) ;
-			$xml = simplexml_load_string($formattedResponse);
-			if ($xml !== false) {
-				foreach ($xml->children() as $child_1) {
-					if ($child_1->getName() === "Items") {
-						foreach ($child_1->children() as $child_2) {
-							if ($child_2->getName() === "Item") {
-								if ($child_2->ItemAttributes->ProductGroup->__toString() === "Electronic") {
-									$entityElectronic = new Article();
-									$entityElectronic->setId($child_2->ASIN);
-									$entityElectronic->setTitre($child_2->ItemAttributes->Title);
-									$entityElectronic->setPrix($child_2->OfferSummary->LowestNewPrice->Amount/100.0); 
-									$entityElectronic->setDisponibilite(1);
-									$entityElectronic->setImage($child_2->LargeImage->URL);
-									$manager->persist($entityElectronic);
-									$manager->flush();
-								}
+            try {
+                $conf
+                    ->setCountry('fr')
+                    ->setRequest($request);
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
+            $apaiIO = new ApaiIO($conf);
 
-							}
-						}
-					}
-				}
-			}
-		}
+            $search = new AmazonSearch();
+            $search->setCategory('Electronics');
+            $keywords = 'phonecase';
+
+            $search->setKeywords($keywords);
+
+            $search->setResponseGroup(array('Offers', 'ItemAttributes', 'Images'));
+
+            $formattedResponse = $apaiIO->runOperation($search);
+            file_put_contents("amazonResponse.xml", $formattedResponse);
+            $xml = simplexml_load_string($formattedResponse);
+            if ($xml !== false) {
+                $evaluations = [];
+                if (file_exists($evaluationsFilePath)) {
+                    $jsonContent = file_get_contents($evaluationsFilePath);
+                    if (!empty($jsonContent)) {
+                        $evaluations = json_decode($jsonContent, true);
+                    }
+                }
+                foreach ($xml->children() as $child_1) {
+                    if ($child_1->getName() === "Items") {
+                        foreach ($child_1->children() as $child_2) {
+                            if ($child_2->getName() === "Item") {
+                                if ($child_2->ItemAttributes->ProductGroup->__toString() === "Electronic") {
+                                    $entityElectronic = new Article();
+                                    $entityElectronic->setId($child_2->ASIN);
+                                    $entityElectronic->setTitre($child_2->ItemAttributes->Title);
+                                    $entityElectronic->setPrix($child_2->OfferSummary->LowestNewPrice->Amount / 100.0);
+                                    $entityElectronic->setDisponibilite(1);
+                                    $entityElectronic->setImage($child_2->LargeImage->URL);
+                                    $manager->persist($entityElectronic);
+                                    $manager->flush();
+                                }
+
+                                // Génère des valeurs aléatoire pour la moyenne et le nombre de votant
+                                $average = mt_rand(0, 50) / 10.0; // Moyenne aléatoire entre  et 5, décimales comprises
+                                $nbUsersVotes = mt_rand(5, 200); // Nombre aléatoire d'utilisateurs ayant voté entre 5 et 200
+
+                                // Création du tableau data d'un article
+                                $evaluation = [
+                                    'idArticle' => (string) $child_2->ASIN,
+                                    'average' => $average,
+                                    'nbUsersVotes' => $nbUsersVotes,
+                                ];
+
+                                // Ajout du tableau de l'article au tableau global
+                                $evaluations[] = $evaluation;
+                            }
+                        }
+                    }
+                }
+
+                // Ajout du tableau global dans le fichier JSON
+                $jsonContent = json_encode($evaluations);
+                file_put_contents($evaluationsFilePath, $jsonContent);
+            }
+        }
     }
 }

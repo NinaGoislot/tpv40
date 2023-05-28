@@ -6,6 +6,7 @@
 parameters:
 
 services:
+
     App\Controller\ArticleController:
         tags: ['controller.service_arguments']
         arguments:
