@@ -35,16 +35,19 @@ class RechercheController extends AbstractController
     {
 		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
 		$articles = $query->getResult();
+        echo '<script>console.log("test");</script>';
 
-        $evaluationsFilePath = './data/evaluation.json';
+        $evaluationsFilePath = '../data/evaluation.json';
+        echo '<script>console.log("'.$evaluationsFilePath.'");</script>';
+        echo '<script>console.log("'.file_exists($evaluationsFilePath).'");</script>';
 
         if (file_exists($evaluationsFilePath)) {
             $evaluationsContent = file_get_contents($evaluationsFilePath);
-            
+            echo '<script>console.log('.json_encode($evaluationsContent).');</script>';
 
             // Décoder le contenu JSON en tableau associatif
             $evaluations = json_decode($evaluationsContent, true);
-            var_dump($evaluations);
+            echo '<script>console.log('.json_encode($evaluations).');</script>';
 
             // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
             $articleData = [];
@@ -67,7 +70,7 @@ class RechercheController extends AbstractController
 
 		return $this->render('recherche.html.twig', [
            'articles' => $articles,
-            'articleData' => $articleData,
+           'articleData' => $articleData,
         ]);
     }
 
@@ -78,6 +81,7 @@ class RechercheController extends AbstractController
      */
     public function afficheRechercheParMotCleAction(Request $request)
     {
+        echo 'test 2';
 		//$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a "
 		//										  ." where a.titre like :motCle");
 		//$query->setParameter("motCle", "%".$request->query->get("motCle")."%") ;

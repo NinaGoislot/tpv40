@@ -89,25 +89,29 @@
 												<h3>{{ article.titre }}</h3>
 											</div>
 											<div class="rating">
-												{% set maxStars = 5 %}
-												{# Nombre maximum d'étoiles #}
-												{% set filledStars = 3 %}
-												{# Nombre d'étoiles remplies #}
-												{% set emptyStars = maxStars - filledStars %}
-												{# Nombre d'étoiles vides #}
-												{% for i in 1..filledStars %}
-													<i class="fas fa-star"></i>
-												{% endfor %}
-												{% for i in 1..emptyStars %}
-													<i class="far fa-star"></i>
-												{% endfor %}
 
-												{% if article.id in articleData %}
+											{% if article.id is defined and article.id in articleData|keys %}
+												{% set filledStars = articleData[article.id].average %}
+												{% set maxStars = 5 %}
+												{% for i in 1..maxStars %}
+													{% if i < filledStars %}
+														<i class="fas fa-star"></i>
+													{% else %}
+														<i class="far fa-star"></i>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+
+											</div>
+											<div class="box-title">
+												<h3>{{ article.id }}</h3>
+											</div>
+											<div>
+											{% if attribute(articleData, article.id|format) is defined %}
 													<p>Moyenne : {{ articleData[article.id].average }}</p>
 													<p>Nombre de votants : {{ articleData[article.id].nbUsersVotes }}</p>
-												{% endif %}
-
-												</div>
+											{% endif %}
+											</div>
 											<span class="price">
 												<span class="amount">Catégorie</span>
 												<br>

@@ -26,6 +26,10 @@ class AppFixtures extends Fixture
     {
 		$evaluationsFilePath = './data/evaluation.json';
 
+		if (file_exists($evaluationsFilePath)) {
+			unlink($evaluationsFilePath);
+		}
+
 		if (count($manager->getRepository("App\Entity\Catalogue\Article")->findAll()) == 0) {
 			$conf = new GenericConfiguration();
 			$client = new Client();
@@ -227,7 +231,7 @@ class AppFixtures extends Fixture
                                 }
 
                                 // Génère des valeurs aléatoire pour la moyenne et le nombre de votant
-                                $average = mt_rand(0, 50) / 10.0; // Moyenne aléatoire entre  et 5, décimales comprises
+                                $average = mt_rand(10, 50) / 10.0; // Moyenne aléatoire entre 1 et 5, décimales comprises
                                 $nbUsersVotes = mt_rand(5, 200); // Nombre aléatoire d'utilisateurs ayant voté entre 5 et 200
 
                                 // Création du tableau data d'un article
