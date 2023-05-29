@@ -35,19 +35,14 @@ class RechercheController extends AbstractController
     {
 		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
 		$articles = $query->getResult();
-        echo '<script>console.log("test");</script>';
 
         $evaluationsFilePath = '../data/evaluation.json';
-        echo '<script>console.log("'.$evaluationsFilePath.'");</script>';
-        echo '<script>console.log("'.file_exists($evaluationsFilePath).'");</script>';
 
         if (file_exists($evaluationsFilePath)) {
             $evaluationsContent = file_get_contents($evaluationsFilePath);
-            echo '<script>console.log('.json_encode($evaluationsContent).');</script>';
 
             // Décoder le contenu JSON en tableau associatif
             $evaluations = json_decode($evaluationsContent, true);
-            echo '<script>console.log('.json_encode($evaluations).');</script>';
 
             // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
             $articleData = [];

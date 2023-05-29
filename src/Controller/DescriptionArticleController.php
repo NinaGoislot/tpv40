@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\RatingType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 class DescriptionArticleController extends AbstractController {
 
     private $entityManager;
@@ -30,55 +33,169 @@ class DescriptionArticleController extends AbstractController {
      * @Route("/descriptionArticle", name="descriptionArticle")
      */
     public function descriptionArticleAction(Request $request) {
+        $evaluationsFilePath = '../data/evaluation.json';
+
+
 		$session = $request->getSession() ;
 		if (!$session->isStarted())
 			$session->start() ;	
 		$article = $this->entityManager->getReference("App\Entity\Catalogue\Article", $request->query->get("id"));
+
+        if (file_exists($evaluationsFilePath)) {
+            $evaluationsContent = file_get_contents($evaluationsFilePath);
+
+            // Décoder le contenu JSON en tableau associatif
+            $evaluations = json_decode($evaluationsContent, true);
+
+            // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
+            $articleData = [];
+
+            foreach ($evaluations as $evaluation) {
+                $articleId = $evaluation['idArticle'];
+                $average = $evaluation['average'];
+                $nbUsersVotes = $evaluation['nbUsersVotes'];
+                $userRating = $evaluation['userRating'];
+                $hasVoted = $evaluation['hasVoted'];
+
+                // Stocker les données dans le tableau associatif
+                $articleData[$articleId] = [
+                    'average' => $average,
+                    'nbUsersVotes' => $nbUsersVotes,
+                    'userRating' => $userRating,
+                    'hasVoted' => $hasVoted,
+                ];
+            }
+        } else {
+            // Le fichier evaluations.json n'existe pas
+            $articleData = [];
+        }
 	
 		return $this->render('description.article.html.twig', [
             'article' => $article,
+             'articleData' => $articleData,
         ]);
-    }
-
-    /*public function showDescriptionArticle($id)
-    {
-        // Chargement du contenu du fichier JSON
-        $evaluationJson = file_get_contents('evaluation.json');
-        $evaluationData = json_decode($evaluationJson, true);
-
-        // Recherche de l'évaluation correspondant à l'article spécifié par son ID
-        $evaluation = null;
-        foreach ($evaluationData as $item) {
-            if ($item['idArticle'] === $id) {
-                $evaluation = $item;
+    }  
+    
+      /**
+     * @Route("/evaluationArticle", name="evaluationArticle", methods={"POST"})
+     */
+    public function evaluationArticleAction(Request $request): Response {
+        $evaluationsFilePath = '../data/evaluation.json';
+        $articleId = $request->request->get('articleId');
+        $rating = $request->request->get('rating');
+    
+        $article = $this->entityManager->getReference("App\Entity\Catalogue\Article", $articleId);
+    
+        // Charger les évaluations du fichier JSON
+        $evaluations = json_decode(file_get_contents($evaluationsFilePath), true);
+    
+        $evaluationIndex = null;
+        foreach ($evaluations as $index => $evaluation) {
+            if ($evaluation['idArticle'] === $articleId) {
+                $evaluationIndex = $index;
                 break;
             }
         }
-
-        // Passer l'évaluation à la vue description.article.html.twig
+    
+        if ($evaluationIndex !== null) {
+            $currentAverage = $evaluations[$evaluationIndex]['average'];
+            $totalUsers = $evaluations[$evaluationIndex]['nbUsersVotes'];
+        } else {
+            $currentAverage = 0;
+            $totalUsers = 0;
+        }
+    
+        $totalUsers++;
+        $newAverageRating = (($currentAverage * $totalUsers) + $rating) / $totalUsers;
+    
+        // Mettre à jour les valeurs
+        $evaluations[$evaluationIndex] = [
+            'idArticle' => $articleId,
+            'average' => $newAverageRating,
+            'nbUsersVotes' => $totalUsers,
+            'userRating' => $rating,
+            'hasVoted' => true,
+        ];
+    
+        $article->setHasVoted(true);
+    
+        $jsonContent = json_encode($evaluations);
+        file_put_contents($evaluationsFilePath, $jsonContent);
+    
         return $this->render('description.article.html.twig', [
-            'evaluation' => $evaluation,
+            'article' => $article,
+            'articleData' => $evaluations,
         ]);
     }
+    
+
+/**
+ * @Route("/article/{id}/evaluation", name="article_evaluation", methods={"POST"})
+ */
+public function submitEvaluation(Request $request, $id): JsonResponse
+{
+    // Récupérer la note sélectionnée par l'utilisateur depuis la requête
+    $userRating = $request->request->getInt('userRating');
+
+    // Lire les données actuelles d'évaluation depuis le fichier evaluations.json
+    $filesystem = new Filesystem();
+    $evaluationsPath = '../data/evaluation.json';
+    $evaluationData = json_decode($filesystem->read($evaluationsPath), true);
+
+    // Mettre à jour les données d'évaluation en fonction de la nouvelle évaluation
+    $evaluationData[$id]['average'] =
+        ($evaluationData[$id]['average'] * $evaluationData[$id]['nbUserVotes'] + $userRating) /
+        ($evaluationData[$id]['nbUserVotes'] + 1);
+    $evaluationData[$id]['nbUserVotes'] += 1;
+
+    // Sauvegarder les nouvelles données dans le fichier evaluations.json
+    $filesystem->write($evaluationsPath, json_encode($evaluationData));
+
+    // Retourner une réponse JSON indiquant que l'évaluation a été soumise avec succès
+    return new JsonResponse(['success' => true]);
+}
 
 
 
-
-
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)  {
-		$this->entityManager = $entityManager;
-	}
-
-     /**
-     * @Route("/descriptionArticle", name="descriptionArticle")
+    /**
+     * @Route("/evaluationArticletest", name="evaluationArticletest")
      */
-    /*public function descriptionArticleAction(Request $request) {
-        $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
-		$article = $query->getResult();
+    /*public function ajouterLigneAction(Request $request) {
+        $articleId = $request->request->get('articleId');
+        $rating = $request->request->get('rating');
+
+        // Charger les évaluations du fichier JSON
+        $evaluations = json_decode(file_get_contents('evaluation.json'), true);
+
+        // Vérifier si l'article existe dans les évaluations
+        if (isset($evaluations[$articleId])) {
+            $currentAverage = $evaluations[$articleId]['average'];
+            $totalUsers = $evaluations[$articleId]['nbUsersVotes'];
+        } else {
+            $currentAverage = 0;
+            $totalUsers = 0;
+        }
+
+        $totalUsers++;
+        $newAverageRating = (($currentAverage * $totalUsers) + $rating) / $totalUsers;
+
+        // Mettre à jour les évaluations dans le tableau
+        $evaluations[$articleId] = [
+            'average' => $newAverageRating,
+            'nbUsersVotes' => $totalUsers + 1,
+            'hasVoted' => true,
+            'userRating' => $rating
+        ];
+
+        if (file_exists($evaluationsFilePath)) {
+			unlink($evaluationsFilePath);
+		}
+
+        $jsonContent = json_encode($evaluations);
+        file_put_contents($evaluationsFilePath, $jsonContent);
+
 		return $this->render('description.article.html.twig', [
-            'article' => $article,
+            'articleData' => $this->$evaluations,
         ]);
     }*/
 
