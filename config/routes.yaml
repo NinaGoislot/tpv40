@@ -1,3 +1,13 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+
+article_controller:
+    resource: App\Controller\ArticleController
+    type: annotation
+    prefix: /article
+
+article_show:
+    path: /article/{id}
+    controller: App\Controller\ArticleController::showArticle

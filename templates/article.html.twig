@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+		<link rel="stylesheet" id="jplayer-css" href="/js/jplayer-2.9.2/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css" />
+{% endblock %}
+{% block body %}
+				<header id="header" class="header-recherche">
+					<div id="logo">
+						<h1 class="site-title">Logo</h1>
+					</div>
+					<nav id="site-navigation" class="main-navigation navigation" role="navigation">
+						<button class="menu-toggle" aria-controls="site-navigation" aria-expanded="false">
+							<span>Menu</span>
+						</button>
+						<div class="menu">
+							<ul class="nav-menu">
+								<li class="page_item page-item-1 current_page_item focus">
+									<a href="/afficheRecherche">Rechercher
+										un article</a>
+								</li>
+								<li class="page_item page-item-2">
+									<a href="/accederAuPanier">Panier</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</header>
+				<h1>TEST</h1>
+				<div>
+					<div class="box-title"><h3>{{ article.titre }}</h3></div>
+					<span class="price">
+						<span class="amount">Catégorie</span>
+						<br>
+						<span class="amount">{{ article.prix }} €</span>
+					</span>
+				</div>
+{% endblock %}
+{% block javascripts %}
+				<script type="text/javascript" src="/js/jplayer-2.9.2/jplayer/jquery.jplayer.min.js"></script>
+				<script type="text/javascript" src="/js/jplayer-2.9.2/add-on/jplayer.playlist.min.js"></script>
+				<script type="text/javascript" src="/js/audio.js"></script>
+{% endblock %}

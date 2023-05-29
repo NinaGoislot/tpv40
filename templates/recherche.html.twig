@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-		<link rel="stylesheet" id="jplayer-css" href="/js/jplayer-2.9.2/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css" />
+	<link rel="stylesheet" id="jplayer-css" href="/js/jplayer-2.9.2/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css"/>
 {% endblock %}
 {% block body %}
 				<header id="header" class="header-recherche">
@@ -45,89 +45,99 @@
 						<span></span>
 						</label>
 
-						<ul class="menu__box">
-						<li><a class="menu__item" href="#">Home</a></li>
-						<li><a class="menu__item" href="#">About</a></li>
-						<li><a class="menu__item" href="#">Team</a></li>
-						<li><a class="menu__item" href="#">Contact</a></li>
-						<li><a class="menu__item" href="#">Twitter</a></li>
-						</ul>
-					</div>
-					
-					<div class="col-full">
-						<div id="primary">
-							<main id="main" class="site-main test" role="main">
-								<header class="woocommerce-products-header">
-									<h1 class="woocommerce-products-header__title page-title">Résultats de la recherche</h1>
-								</header>
-								<ul class="products">
-									{% for article in articles %}
-												{% if loop.index0 is divisible by(4) %}
-									<li class="product type-product first">
+
+			<ul class="menu__box">
+				<li>
+					<a class="menu__item" href="#">Home</a>
+				</li>
+				<li>
+					<a class="menu__item" href="#">About</a>
+				</li>
+				<li>
+					<a class="menu__item" href="#">Team</a>
+				</li>
+				<li>
+					<a class="menu__item" href="#">Contact</a>
+				</li>
+				<li>
+					<a class="menu__item" href="#">Twitter</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-full">
+			<div id="primary">
+				<main id="main" class="site-main test" role="main">
+					<header class="woocommerce-products-header">
+						<h1 class="woocommerce-products-header__title page-title">Résultats de la recherche</h1>
+					</header>
+					<ul class="products container">
+						{% for article in articles %}
+							{% if loop.index0 is divisible by(4) %}
+								<li class="product type-product first">
+								{% else %}
+									{% if loop.index is divisible by(4) %}
+										<li class="product type-product last">
 										{% else %}
-											{% if loop.index is divisible by(4) %}
-									<li class="product type-product last">
-											{% else %}
-									<li class="product type-product">
+											<li class="product type-product">
 											{% endif %}
 										{% endif %}
-									<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link "
-										href="/ajouterLigne?id={{ article.id }}">
-										<img src="{{ article.image }}" class="card-image" alt="poster_2_up"/>
-											<h3>{{ article.titre }}</h3>
+										<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link " href="/descriptionArticle?id={{ article.id }}">
+											<img src="{{ article.image }}" class="card-image" alt="poster_2_up"/>
+
+											<div class="box-title">
+												<h3>{{ article.titre }}</h3>
+											</div>
+											<div class="rating">
+
+											{% if article.id is defined and article.id in articleData|keys %}
+												{% set filledStars = articleData[article.id].average %}
+												{% set maxStars = 5 %}
+												{% for i in 1..maxStars %}
+													{% if i < filledStars %}
+														<i class="fas fa-star"></i>
+													{% else %}
+														<i class="far fa-star"></i>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+
+											</div>
+											<div class="box-title">
+												<h3>{{ article.id }}</h3>
+											</div>
+											<div>
+											{% if attribute(articleData, article.id|format) is defined %}
+													<p>Moyenne : {{ articleData[article.id].average }}</p>
+													<p>Nombre de votants : {{ articleData[article.id].nbUsersVotes }}</p>
+											{% endif %}
+											</div>
 											<span class="price">
 												<span class="amount">Catégorie</span>
 												<br>
-												<span class="amount">{{ article.prix }} €</span>
+												<span class="amount">{{ article.prix }}
+													€</span>
 											</span>
 
-									</a> <a
-										href="/ajouterLigne?id={{ article.id }}"
-										class="button product_type_simple add_to_cart_button">Mettre
-											dans le panier</a>
-										{% if article.pistes is defined %}
-											{% if article.pistes|length > 0 %}
-										<div id="jquery_jplayer_{{ article.id }}" class="jp-jplayer" data-idArticle="{{ article.id }}"  data-pistes="{{ article.pistes|json_encode() }}"></div>
-										<div id="jp_container_{{ article.id }}" class="jp-audio" role="application">
-											<div class="jp-type-playlist">
-												<div class="jp-gui jp-interface">
-													<div class="jp-controls-holder">
-														<div class="jp-controls">
-															<button class="jp-previous" role="button" tabindex="0">previous</button>
-															<button class="jp-play" role="button" tabindex="0">play</button>
-															<button class="jp-stop" role="button" tabindex="0">stop</button>
-															<button class="jp-next" role="button" tabindex="0">next</button>
-														</div>
-													</div>
-												</div>
-												<div class="jp-playlist">
-													<ul>
-													</ul>
-												</div>
-												<div class="jp-no-solution">
-													<span>Update Required</span> To play the media you will need to
-													either update your browser to a recent version or update your <a
-														href="http://get.adobe.com/flashplayer/" target="_blank">Flash
-														plugin</a>.
-												</div>
-											</div>
-										</div> 
-											{% endif %}
-										{% endif %}
+										
 
 										</a>
 										<a href="/ajouterLigne?id={{ article.id }}" class="button product_type_simple add_to_cart_button">Mettre dans le panier</a>
 										<a class="btn btn-info display-4" href="/descriptionArticle?id={{ article.id }}">Voir détails</a>
+
 									</li>
-									{% endfor %}
-								</ul>
-							</main>
-						</div>
-					</div><!-- .col-full -->
-				</div><!-- #content -->
-{% endblock %}
-{% block javascripts %}
-				<script type="text/javascript" src="/js/jplayer-2.9.2/jplayer/jquery.jplayer.min.js"></script>
-				<script type="text/javascript" src="/js/jplayer-2.9.2/add-on/jplayer.playlist.min.js"></script>
-				<script type="text/javascript" src="/js/audio.js"></script>
-{% endblock %}
+								{% endfor %}
+							</ul>
+						</main>
+					</div>
+				</div>
+				<!-- .col-full -->
+			</div>
+			<!-- #content -->
+		{% endblock %}
+		{% block javascripts %}
+			<script type="text/javascript" src="/js/jplayer-2.9.2/jplayer/jquery.jplayer.min.js"></script>
+			<script type="text/javascript" src="/js/jplayer-2.9.2/add-on/jplayer.playlist.min.js"></script>
+			<script type="text/javascript" src="/js/audio.js"></script>
+			<script src="https://kit.fontawesome.com/6a27157276.js" crossorigin="anonymous"></script>
+		{% endblock %}
