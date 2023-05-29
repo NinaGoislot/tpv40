@@ -2,10 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 
-
 *{
     font-family: 'Roboto', sans-serif !important;
 }
+
+
 /*header*/
 
 .header-recherche{
@@ -17,13 +18,17 @@
     font-family: 'Poppins', sans-serif;
     color: #fff;
 }
-
+.header-recherche .site-title{
+    color: #fff;
+}
 .header-recherche #logo{
     width: 20%;
-    
 }
 .header-recherche #logo h1{
     font-size: 25px !important;
+}
+.header-recherche .page_item{
+    margin: 15px;
 }
 .header-recherche .page_item{
     margin: 15px;
@@ -45,60 +50,15 @@
    margin: 0 15px 0 0 !important;
    font-size: 13px;
    font-weight: 600;
+   font-size: 13px;
+   font-weight: 600;
 }
 .nav-menu svg{
     width: 30px;
     height: 30px;
 }
 
-.icon{
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    flex-direction: column;
-    border-radius: 100px;
-    transition-property: background-color, color, border-color, box-shadow;
-    transition-duration: .3s,.3s,.3s,.8s;
-    transition-timing-function: ease-in-out;
-    background: none;
-    border-color: #ffffff;
-    color: #ffffff !important;
-    border: 1px solid;
-    letter-spacing: 1px;
-    -moz-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    padding: 8px 13px !important;
-    transform: perspective(1px) translateZ(0);
-    position: relative;
-    overflow: hidden;
-    
- }
-.icon:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    height: 2rem;
-    width: 2rem;
-    top: calc(50% - 1rem);
-    left: calc(50% - 1rem);
-    transform: scale(0);
-    transition-duration: 0.5s;
-    transition-timing-function: ease-out;
-    background-color: #ffffff;
-    border-color: #ffffff;
-    border-radius: 100px;
-}
-  
-  .icon:hover{
-    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
-    color: #333333 !important;
-    background-color: #ffffff;
-    border-color: #ffffff;
-  }
-  .icon:hover span{
-    /*text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);*/
-    
-  }
+
   
   /*.icon:hover {
     background: #6781a3;
@@ -157,28 +117,29 @@
 }
 
 /*bouton*/
-/* .btn-info, .btn-info:active, .btn-info.active {
-    background-color: #1ba1e2;
-    border-color: #1ba1e2;
-    color: #ffffff !important;
-    transform: perspective(1px) translateZ(0);
-    -webkit-transform: perspective(1px) translateZ(0);
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    font-weight: 400;
+.btn{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column;
     border-radius: 100px;
-    padding: 1rem 2rem;
-    text-decoration: none;
-}
-.btn-info:hover{
-    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
+    border-color: #ffffff;
+    transition-property: background-color, color, border-color, box-shadow;
+    transition-duration: .3s,.3s,.3s,.8s;
+    transition-timing-function: ease-in-out;
+    background: none;
+    
     color: #ffffff !important;
-    background-color: #13709e;
-    border-color: #13709e;
+    border: 1px solid;
+    letter-spacing: 1px;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 13px !important;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    overflow: hidden; 
 }
-
-.btn-info:before {
+.btn.lien:before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -189,10 +150,22 @@
     transform: scale(0);
     transition-duration: 0.5s;
     transition-timing-function: ease-out;
-    background-color: #13709e;
-    border-color: #13709e;
+    background-color: #ffffff;
+    border-color: #ffffff;
     border-radius: 100px;
-} */
+}
+  
+.btn.lien:hover{
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
+    color: #333333 !important;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.btn.lien:hover span{
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+    
+}
+
 
 .btn-info {
     -webkit-transform: perspective(1px) translateZ(0);
@@ -259,6 +232,25 @@
     display: none;
 }
 
+
+
+/*page article*/
+.pageArticle{
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+    display: flex;
+}
+.pageArticle1{
+    border: 1px solid green;
+
+}
+.pageArticle2{
+    width: 100%;
+    height: 100%;
+    border: 1px solid blue;
+    display: flex;
+}
 /*panier*/
 .panier{
     display: flex;
