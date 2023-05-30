@@ -22,6 +22,13 @@
     transition-duration: 0.5s;
     transition-timing-function: ease-out;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-category .one-category:focus{
+    background-color: #90a0a8;
 }
 
 .filter-category .one-category a {
