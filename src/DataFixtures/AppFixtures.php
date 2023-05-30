@@ -14,6 +14,7 @@ use GuzzleHttp\Client;
 use DeezerAPI\Search as DeezerSearch;
 
 use App\Entity\Catalogue\Livre;
+use App\Entity\Catalogue\ArticleCollaboration;
 use App\Entity\Catalogue\Musique;
 use App\Entity\Catalogue\Piste;
 use App\Entity\Catalogue\Article;
@@ -52,13 +53,15 @@ class AppFixtures extends Fixture
 			$search = new AmazonSearch();
 			$search->setCategory('Electronics');
 			$keywords = 'external battery' ;
-			
-			//$search->setCategory('Books');
-			//$keywords = 'Henning Mankell' ;
+		
 			
 			$search->setKeywords($keywords);
 			
 			$search->setResponseGroup(array('Offers','ItemAttributes','Images'));
+
+			//-------------------------------------------------------------------------------------------------------------
+			//---------------------------------------- ARTCILES BATTERIE EXTERNE ------------------------------------------
+			//-------------------------------------------------------------------------------------------------------------
 
 			$formattedResponse = $apaiIO->runOperation($search);
 			file_put_contents("amazonResponse.xml",$formattedResponse) ;
@@ -75,104 +78,73 @@ class AppFixtures extends Fixture
 									$entityElectronic->setPrix($child_2->OfferSummary->LowestNewPrice->Amount/100.0); 
 									$entityElectronic->setDisponibilite(1);
 									$entityElectronic->setImage($child_2->LargeImage->URL);
+									$entityElectronic->setCategory($keywords);
 									$manager->persist($entityElectronic);
 									$manager->flush();
 								}
 
-								if ($child_2->ItemAttributes->ProductGroup->__toString() === "Book") {
-									$entityLivre = new Livre();
-									$entityLivre->setId($child_2->ASIN);
-									$entityLivre->setTitre($child_2->ItemAttributes->Title);
-									$entityLivre->setAuteur($child_2->ItemAttributes->Author);
-									$entityLivre->setISBN($child_2->ItemAttributes->ISBN);
-									$entityLivre->setPrix($child_2->OfferSummary->LowestNewPrice->Amount/100.0); 
-									$entityLivre->setDisponibilite(1);
-									$entityLivre->setImage($child_2->LargeImage->URL);
-									$manager->persist($entityLivre);
-									$manager->flush();
-								}
-								if ($child_2->ItemAttributes->ProductGroup->__toString() === "Music") {
-									$entityMusique = new Musique();
-									$entityMusique->setId($child_2->ASIN);
-									$entityMusique->setTitre($child_2->ItemAttributes->Title);
-									$entityMusique->setArtiste($child_2->ItemAttributes->Artist);
-									$entityMusique->setDateDeParution($child_2->ItemAttributes->PublicationDate);
-									$entityMusique->setPrix($child_2->OfferSummary->LowestNewPrice->Amount/100.0); 
-									$entityMusique->setDisponibilite(1);
-									$entityMusique->setImage($child_2->LargeImage->URL) ;
-									if (!isset($albums)) {
-										$deezerSearch = new DeezerSearch($keywords);
-										$artistes = $deezerSearch->searchArtist() ;
-										$albums = $deezerSearch->searchAlbumsByArtist($artistes[0]->getId()) ;
-									}
-									$j = 0 ;
-									$sortir = ($j==count($albums)) ;
-									$albumTrouve = false ;
-									while (!$sortir) {
-										$titreDeezer = str_replace(" ","",mb_strtolower($albums[$j]->title)) ;
-										$titreAmazon = str_replace(" ","",mb_strtolower($entityMusique->getTitre())) ;
-										$titreDeezer = str_replace("-","",$titreDeezer) ;
-										$titreAmazon = str_replace("-","",$titreAmazon) ;
-                                        $albumTrouve = ($titreDeezer == $titreAmazon) ;
-                                        if (mb_strlen($titreAmazon) > mb_strlen($titreDeezer))
-                                            $albumTrouve = $albumTrouve || (mb_strpos($titreAmazon, $titreDeezer) !== false) ;
-                                         if (mb_strlen($titreDeezer) > mb_strlen($titreAmazon))
-                                            $albumTrouve = $albumTrouve || (mb_strpos($titreDeezer, $titreAmazon) !== false) ;
-										$j++ ;
-										$sortir = $albumTrouve || ($j==count($albums)) ;
-									}
-									if ($albumTrouve) {
-										$tracks = $deezerSearch->searchTracksByAlbum($albums[$j-1]->getId()) ;
-										foreach ($tracks as $track) {
-											$entityPiste = new Piste();
-											$entityPiste->setTitre($track->title);
-											$entityPiste->setMp3($track->preview);
-											$manager->persist($entityPiste);
-											$manager->flush();
-											$entityMusique->addPiste($entityPiste) ;
-										}
-									}
-									
-									$manager->persist($entityMusique);
-									$manager->flush();
-								}
+								 // Génère des valeurs aléatoire pour la moyenne et le nombre de votant
+								 $average = mt_rand(10, 50) / 10.0;
+								 $nbUsersVotes = mt_rand(5, 200);
+								 $idArticle = (string) $child_2->ASIN;
+								 
+								 $evaluation = [];
+ 
+								 // Création du tableau data d'un article
+								 $evaluation[$idArticle] = [
+									 'idArticle' => $idArticle,
+									 'average' => $average,
+									 'nbUsersVotes' => $nbUsersVotes,
+									 'userRating' => 0,
+									 'hasVoted' => false
+								 ];
+ 
+								 // Ajout du tableau de l'article au tableau global
+								 $evaluations[] = $evaluation;
 							}
 						}
 					}
 				}
-				$entityLivre = new Livre();
-				$entityLivre->setId("1141555677821");
-				$entityLivre->setTitre("Le seigneur des anneaux");
-				$entityLivre->setAuteur("J.R.R. TOLKIEN");
-				$entityLivre->setISBN("2075134049");
-				$entityLivre->setNbPages(736);
-				$entityLivre->setDateDeParution("03/10/19");
-				$entityLivre->setPrix("8.90");
-				$entityLivre->setDisponibilite(1);
-				$entityLivre->setImage("/images/51O0yBHs+OL._SL500_.jpg");
-				$manager->persist($entityLivre);
-				$entityLivre = new Livre();
-				$entityLivre->setId("1141555897821");
-				$entityLivre->setTitre("Un paradis trompeur");
-				$entityLivre->setAuteur("Henning Mankell");
-				$entityLivre->setISBN("275784797X");
-				$entityLivre->setNbPages(400);
-				$entityLivre->setDateDeParution("09/10/14");
-				$entityLivre->setPrix("6.80");
-				$entityLivre->setDisponibilite(1);
-				$entityLivre->setImage("/images/41kQXtYSFPL._SL500_.jpg");
-				$manager->persist($entityLivre);
-				$entityLivre = new Livre();
-				$entityLivre->setId("1141556299459");
-				$entityLivre->setTitre("Dôme tome 1");
-				$entityLivre->setAuteur("Stephen King");
-				$entityLivre->setISBN("2212110685");
-				$entityLivre->setNbPages(840);
-				$entityLivre->setDateDeParution("06/03/13");
-				$entityLivre->setPrix("8.90");
-				$entityLivre->setDisponibilite(1);
-				$entityLivre->setImage("/images/41ICy6+-LdL._SL500_.jpg");
-				$manager->persist($entityLivre);
+				// Ajout du tableau global dans le fichier JSON
+                $jsonContent = json_encode($evaluations);
+                file_put_contents($evaluationsFilePath, $jsonContent);
+
+
+			//-------------------------------------------------------------------------------------------------------------
+			//----------------------------------------- ARTCILES DE COLLABORATION -----------------------------------------
+			//-------------------------------------------------------------------------------------------------------------
+				$entityCollaboration = new ArticleCollaboration();
+				$entityCollaboration->setId("GEN202301");
+				$entityCollaboration->setTitre("Coque Blanche Jeu Genshin Impact");
+				$entityCollaboration->setEntreprise("miHoYo");
+				$entityCollaboration->setPersonnage("Noelle");
+				$entityCollaboration->setUnivers("Genshin Impact");
+				$entityCollaboration->setCollection("Collaboration Genshin Impact 2023");
+				$entityCollaboration->setPrix("14.90");
+				$entityCollaboration->setDisponibilite(1);
+				$entityCollaboration->setImage("/images/collaboration_genshin.jpg");
+				$entityCollaboration->setCategory("Collaboration");
+				$manager->persist($entityCollaboration);
+				$entityCollaboration = new ArticleCollaboration();
+				$entityCollaboration->setId("TIG2365942");
+				$entityCollaboration->setTitre("Coque Huawei X20 lite");
+				$entityCollaboration->setArtiste("Tigerfight");
+				$entityCollaboration->setUnivers("illustration tigre végétation");
+				$entityCollaboration->setPrix("8.99");
+				$entityCollaboration->setDisponibilite(1);
+				$entityCollaboration->setImage("/images/collaboration_tigerfight.webp");
+				$entityCollaboration->setCategory("Collaboration");
+				$manager->persist($entityCollaboration);
+				$entityCollaboration = new ArticleCollaboration();
+				$entityCollaboration->setId("1LUC458264");
+				$entityCollaboration->setTitre("Coque Samsung dessin illustration");
+				$entityCollaboration->setArtiste("LuckyMe");
+				$entityCollaboration->setUnivers("illustration minimaliste");
+				$entityCollaboration->setPrix("6.99");
+				$entityCollaboration->setDisponibilite(1);
+				$entityCollaboration->setImage("/images/collaboration_luckyme.webp");
+				$entityCollaboration->setCategory("Collaboration");
+				$manager->persist($entityCollaboration);
 				$manager->flush();
 			}
 
@@ -226,16 +198,17 @@ class AppFixtures extends Fixture
                                     $entityElectronic->setPrix($child_2->OfferSummary->LowestNewPrice->Amount / 100.0);
                                     $entityElectronic->setDisponibilite(1);
                                     $entityElectronic->setImage($child_2->LargeImage->URL);
+									$entityElectronic->setCategory($keywords);
                                     $manager->persist($entityElectronic);
                                     $manager->flush();
                                 }
 
                                 // Génère des valeurs aléatoire pour la moyenne et le nombre de votant
-                                $average = mt_rand(10, 50) / 10.0; // Moyenne aléatoire entre 1 et 5, décimales comprises
-                                $nbUsersVotes = mt_rand(5, 200); // Nombre aléatoire d'utilisateurs ayant voté entre 5 et 200
+                                $average = mt_rand(10, 50) / 10.0;
+                                $nbUsersVotes = mt_rand(5, 200);
 								$idArticle = (string) $child_2->ASIN;
 								
-								$evaluation = []; // Nouveau tableau $evaluation à chaque itération
+								$evaluation = [];
 
                                 // Création du tableau data d'un article
                                 $evaluation[$idArticle] = [

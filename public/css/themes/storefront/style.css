@@ -294,11 +294,7 @@ hr,
 p {
  margin:0 0 1.41575em
 }
-ol,
-ul {
- margin:0 0 1.41575em 3em;
- padding:0
-}
+
 ul {
  list-style:disc
 }

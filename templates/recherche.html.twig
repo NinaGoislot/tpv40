@@ -3,114 +3,114 @@
 	<link rel="stylesheet" id="jplayer-css" href="/js/jplayer-2.9.2/skin/blue.monday/css/jplayer.blue.monday.css" type="text/css"/>
 {% endblock %}
 {% block body %}
-		<header id="header" class="header-recherche">
-			<div id="logo">
-				<h1 class="site-title">PhoneHub</h1>
-			</div>
-			<nav id="site-navigation" class="main-navigation navigation" role="navigation">
-				<button class="menu-toggle" aria-controls="site-navigation" aria-expanded="false">
-					<span>Menu</span>
-				</button>
-				<div class="menu">
-					<ul class="nav-menu">
+	<header id="header" class="header-recherche">
+		<div id="logo">
+			<h1 class="site-title">TechCase</h1>
+		</div>
+		<nav id="site-navigation" class="main-navigation navigation" role="navigation">
+			<button class="menu-toggle" aria-controls="site-navigation" aria-expanded="false">
+				<span>Menu</span>
+			</button>
+			<div class="menu">
+				<ul class="nav-menu">
 					<li class="page_item page-item-1 current_page_item focus">
 						<a href="/afficheRecherche" class="btn lien">
 							<div>
-								<p>
-									Rechercher
-								</p>
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512">
-									<path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></svg>
+								<p>Rechercher</p>
+								<i class="fa-solid fa-magnifying-glass"></i>
 							</div>
 						</a>
 					</li>
-			
-					<li class="page_item page-item-2">
+				</li>
+				<li class="page_item page-item-2">
 					<a href="/accederAuPanier" class="btn lien">
 						<div>
 							<p>Panier</p>
-							<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512">
-								<path d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16z"></svg>
+							<i class="fa-solid fa-basket-shopping"></i>
+						</div>
+					</a>
+				</li>
+			</li>
+		</ul>
+	</div>
+</nav></header><div class="col-full">
+<div id="primary">
+	<main id="main" class="site-main test" role="main">
+		<div class="text-select-category">
+			<p>Sélectionner une catégorie</p>
+		</div>
+		<ul class="filter-category">
+			<li class="one-category">
+				<a href="/afficheRecherche">Tous</a>
+			</li>
+			<li class="one-category">
+				<a href="/afficheRecherche/phonecase">Coques</a>
+			</li>
+			<li class="one-category">
+				<a href="/afficheRecherche/externalbattery">Batteries externes</a>
+			</li>
+			<li class="one-category">
+				<a href="/afficheRecherche/collaboration">Articles de collaborations</a>
+			</li>
+		</ul>
+		<ul class="products container">
+			{% for article in articles %}
+				{% if loop.index0 is divisible by(4) %}
+					<li class="product type-product first">
+					{% else %}
+						{% if loop.index is divisible by(4) %}
+							<li class="product type-product last">
+							{% else %}
+								<li class="product type-product">
+								{% endif %}
+							{% endif %}
+							<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link " href="/descriptionArticle?id={{ article.id }}">
+								<img src="{{ article.image }}" class="card-image" alt="poster_2_up"/>
+
+								<div class="box-title">
+									<h3>{{ article.titre }}</h3>
+								</div>
+								{% if article.id is defined and article.id in articleData|keys %}
+									<div class="rating" title="Moyenne : {{ articleData[article.id]['average'] }}">
+										{% set filledStars = articleData[article.id]['average'] %}
+										{% set maxStars = 5 %}
+										{% for i in 1..maxStars %}
+											{% if i < filledStars %}
+												<i class="fas fa-star"></i>
+											{% else %}
+												<i class="far fa-star"></i>
+											{% endif %}
+										{% endfor %}
+									</div>
+								{% endif %}
+								<div>
+									{% if attribute(articleData, article.id|format) is defined %}
+										<p class="font-weight-bold">Nombre de votes :
+											{{ articleData[article.id]['nbUsersVotes'] }}</p>
+									{% endif %}
+								</div>
+
+
+							</a>
+							<div class="price">
+								<br>
+								<p>{{ article.prix }}
+									€</p>
+								<a href="/ajouterLigne?id={{ article.id }}" class="btn btn-panier button product_type_simple add_to_cart_button">Mettre dans le panier</a>
+								<a class="btn btn-info display-4" href="/descriptionArticle?id={{ article.id }}">Voir détails</a>
 							</div>
-						</a>
-					</li>
-						</ul>
-					</div>
-				</nav>
-		</header>
-				
 
-		<div class="col-full">
-			<div id="primary">
-				<main id="main" class="site-main test" role="main">
-					<header class="woocommerce-products-header">
-						<h1 class="woocommerce-products-header__title page-title">Résultats de la recherche</h1>
-					</header>
-					<ul class="products container">
-						{% for article in articles %}
-							{% if loop.index0 is divisible by(4) %}
-								<li class="product type-product first">
-								{% else %}
-									{% if loop.index is divisible by(4) %}
-										<li class="product type-product last">
-										{% else %}
-											<li class="product type-product">
-											{% endif %}
-										{% endif %}
-										<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link " href="/descriptionArticle?id={{ article.id }}">
-											<img src="{{ article.image }}" class="card-image" alt="poster_2_up"/>
 
-											<div class="box-title">
-												<h3>{{ article.titre }}</h3>
-											</div>
-											<div class="rating">
-
-											{% if article.id is defined and article.id in articleData|keys %}
-												{% set filledStars = articleData[article.id]['average'] %}
-												{% set maxStars = 5 %}
-												{% for i in 1..maxStars %}
-													{% if i < filledStars %}
-														<i class="fas fa-star"></i>
-													{% else %}
-														<i class="far fa-star"></i>
-													{% endif %}
-												{% endfor %}
-											{% endif %}
-
-											</div>
-											<div class="box-title">
-												<h3>{{ article.id }}</h3>
-											</div>
-											<div>
-											{% if attribute(articleData, article.id|format) is defined %}
-													<p>Moyenne : {{ articleData[article.id]['average'] }}</p>
-													<p>Nombre de votants : {{ articleData[article.id]['nbUsersVotes'] }}</p>
-											{% endif %}
-											</div>
-											<span class="price">
-												<span class="amount">Catégorie</span>
-												<br>
-												<span class="amount">{{ article.prix }}
-													€</span>
-											</span>
-
-									</a> 
-									<a href="/ajouterLigne?id={{ article.id }}" class="btn btn-panier button product_type_simple add_to_cart_button">Mettre dans le panier</a>
-										<a class="btn btn-info display-4" href="/descriptionArticle?id={{ article.id }}">Voir détails</a>
-
-									</li>
-								{% endfor %}
-							</ul>
-						</main>
-					</div>
-				</div>
-				<!-- .col-full -->
-			</div>
-			<!-- #content -->
-		{% endblock %}
-		{% block javascripts %}
-			<script type="text/javascript" src="/js/jplayer-2.9.2/jplayer/jquery.jplayer.min.js"></script>
-			<script type="text/javascript" src="/js/jplayer-2.9.2/add-on/jplayer.playlist.min.js"></script>
-			<script type="text/javascript" src="/js/audio.js"></script>
-			<script src="https://kit.fontawesome.com/6a27157276.js" crossorigin="anonymous"></script>
-		{% endblock %}
+						</li>
+					{% endfor %}
+				</ul>
+			</main>
+		</div>
+	</div>
+	<!-- .col-full -->
+</div>
+<!-- #content -->{% endblock %}{% block javascripts %}
+<script type="text/javascript" src="/js/jplayer-2.9.2/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/js/jplayer-2.9.2/add-on/jplayer.playlist.min.js"></script>
+<script type="text/javascript" src="/js/audio.js"></script>
+<script src="https://kit.fontawesome.com/6a27157276.js" crossorigin="anonymous"></script>{% endblock %}

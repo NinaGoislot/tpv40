@@ -14,16 +14,12 @@ use App\Entity\Catalogue\Article;
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-use Symfony\Component\Form\Extension\Core\Type\RatingType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 class DescriptionArticleController extends AbstractController {
 
     private $entityManager;
 	private $logger;
-	
-	private $panier;
-	
+
+
 	public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)  {
 		$this->entityManager = $entityManager;
 		$this->logger = $logger;
@@ -43,11 +39,8 @@ class DescriptionArticleController extends AbstractController {
 
         if (file_exists($evaluationsFilePath)) {
             $evaluationsContent = file_get_contents($evaluationsFilePath);
-
-            // Décoder le contenu JSON en tableau associatif
             $evaluations = json_decode($evaluationsContent, true);
 
-            // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
             $articleData = [];
 
             foreach ($evaluations as $evaluation) {
@@ -59,7 +52,6 @@ class DescriptionArticleController extends AbstractController {
                     $hasVoted = $data['hasVoted'];
                 }
 
-                // Stocker les données dans le tableau associatif
                 $articleData[$articleId] = [
                     'average' => round($average,2),
                     'nbUsersVotes' => $nbUsersVotes,
@@ -68,7 +60,6 @@ class DescriptionArticleController extends AbstractController {
                 ];
             }
         } else {
-            // Le fichier evaluations.json n'existe pas
             $articleData = [];
         }
 	
@@ -87,8 +78,6 @@ class DescriptionArticleController extends AbstractController {
         $rating = $request->request->get('rating');
     
         $article = $this->entityManager->getReference("App\Entity\Catalogue\Article", $articleId);
-    
-        // Charger les évaluations du fichier JSON
         $evaluations = json_decode(file_get_contents($evaluationsFilePath), true);
     
         $evaluationIndex = null;
@@ -101,9 +90,6 @@ class DescriptionArticleController extends AbstractController {
                     break;
                 }
             }
-
-            var_dump ($evaluationIndex !== null);
-            var_dump ($evaluationIndex);
         
             if ($evaluationIndex !== null) {
                 $articleEvaluation = $evaluations[$evaluationIndex][$articleId];
@@ -111,17 +97,14 @@ class DescriptionArticleController extends AbstractController {
                 $totalUsers = $articleEvaluation['nbUsersVotes'] + 1;
                 $hasVoted = $articleEvaluation['hasVoted'];
 
-                
-                var_dump ($currentAverage);
             } else {
                 $currentAverage = 0;
                 $totalUsers = 0;
                 $hasVoted = false;
             }
             $newAverageRating = round((($currentAverage * ($totalUsers - 1)) + $rating) / $totalUsers, 2);
-            var_dump ($newAverageRating);
         
-            // Mettre à jour les valeurs
+            // Mise à jour des valeurs de l'article
             $evaluations[$evaluationIndex][$articleId] = [
                 'idArticle' => $articleId,
                 'average' => $newAverageRating,

@@ -29,46 +29,159 @@ class RechercheController extends AbstractController
 	}
 	
     /**
- * @Route("/afficheRecherche", name="afficheRecherche")
- */
-public function afficheRechercheAction(Request $request)
-{
-    $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
-    $articles = $query->getResult();
+     * @Route("/afficheRecherche", name="afficheRecherche")
+     */
+    public function afficheRechercheAction(Request $request)
+    {
+        $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
+        $articles = $query->getResult();
 
-    $evaluationsFilePath = '../data/evaluation.json';
+        $evaluationsFilePath = '../data/evaluation.json';
 
-    if (file_exists($evaluationsFilePath)) {
-        $evaluationsContent = file_get_contents($evaluationsFilePath);
+        if (file_exists($evaluationsFilePath)) {
+            $evaluationsContent = file_get_contents($evaluationsFilePath);
 
-        // Décoder le contenu JSON en tableau associatif
-        $evaluations = json_decode($evaluationsContent, true);
+            // Décoder le contenu JSON en tableau associatif
+            $evaluations = json_decode($evaluationsContent, true);
 
-        // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
-        $articleData = [];
+            $articleData = [];
 
-        foreach ($evaluations as $evaluation) {
-            foreach ($evaluation as $articleId => $data) {
-            $average = $data['average'];
-            $nbUsersVotes = $data['nbUsersVotes'];
-
-            // Stocker les données dans le tableau associatif avec l'id de l'article comme clé
-            $articleData[$articleId] = [
-                'average' => $average,
-                'nbUsersVotes' => $nbUsersVotes,
-            ];
+            foreach ($evaluations as $evaluation) {
+                foreach ($evaluation as $articleId => $data) {
+                $average = $data['average'];
+                $nbUsersVotes = $data['nbUsersVotes'];
+                $articleData[$articleId] = [
+                    'average' => $average,
+                    'nbUsersVotes' => $nbUsersVotes,
+                ];
+            }
+            }
+        } else {
+            $articleData = [];
         }
-        }
-    } else {
-        // Le fichier evaluations.json n'existe pas
-        $articleData = [];
+
+        return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+            'articleData' => $articleData,
+        ]);
     }
 
-    return $this->render('recherche.html.twig', [
-        'articles' => $articles,
-        'articleData' => $articleData,
-    ]);
-}
+    /**
+     * @Route("/afficheRecherche/phonecase", name="phonecase")
+     */
+    public function affichePhoneCase(Request $request)
+    {
+        $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a WHERE a.category='phonecase'");
+        $articles = $query->getResult();
+
+        $evaluationsFilePath = '../data/evaluation.json';
+
+        if (file_exists($evaluationsFilePath)) {
+            $evaluationsContent = file_get_contents($evaluationsFilePath);
+
+            // Décoder le contenu JSON en tableau associatif
+            $evaluations = json_decode($evaluationsContent, true);
+            
+            $articleData = [];
+
+            foreach ($evaluations as $evaluation) {
+                foreach ($evaluation as $articleId => $data) {
+                    $average = $data['average'];
+                    $nbUsersVotes = $data['nbUsersVotes'];
+                    $articleData[$articleId] = [
+                        'average' => $average,
+                        'nbUsersVotes' => $nbUsersVotes,
+                    ];
+                }
+            }
+        } else {
+        
+            $articleData = [];
+        }
+
+        return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+            'articleData' => $articleData,
+        ]);
+    }
+
+     /**
+     * @Route("/afficheRecherche/externalbattery", name="externalbattery")
+     */
+    public function afficheExternalBattery(Request $request)
+    {
+        $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a WHERE a.category='external battery'");
+        $articles = $query->getResult();
+
+        $evaluationsFilePath = '../data/evaluation.json';
+
+        if (file_exists($evaluationsFilePath)) {
+            $evaluationsContent = file_get_contents($evaluationsFilePath);
+
+            // Décoder le contenu JSON en tableau associatif
+            $evaluations = json_decode($evaluationsContent, true);
+            
+            $articleData = [];
+
+            foreach ($evaluations as $evaluation) {
+                foreach ($evaluation as $articleId => $data) {
+                    $average = $data['average'];
+                    $nbUsersVotes = $data['nbUsersVotes'];
+                    $articleData[$articleId] = [
+                        'average' => $average,
+                        'nbUsersVotes' => $nbUsersVotes,
+                    ];
+                }
+            }
+        } else {
+        
+            $articleData = [];
+        }
+
+        return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+            'articleData' => $articleData,
+        ]);
+    }
+
+     /**
+     * @Route("/afficheRecherche/collaboration", name="collaboration")
+     */
+    public function afficheCollaboration(Request $request)
+    {
+        $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a WHERE a.category='Collaboration'");
+        $articles = $query->getResult();
+
+        $evaluationsFilePath = '../data/evaluation.json';
+
+        if (file_exists($evaluationsFilePath)) {
+            $evaluationsContent = file_get_contents($evaluationsFilePath);
+
+            // Décoder le contenu JSON en tableau associatif
+            $evaluations = json_decode($evaluationsContent, true);
+            
+            $articleData = [];
+
+            foreach ($evaluations as $evaluation) {
+                foreach ($evaluation as $articleId => $data) {
+                    $average = $data['average'];
+                    $nbUsersVotes = $data['nbUsersVotes'];
+                    $articleData[$articleId] = [
+                        'average' => $average,
+                        'nbUsersVotes' => $nbUsersVotes,
+                    ];
+                }
+            }
+        } else {
+        
+            $articleData = [];
+        }
+
+        return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+            'articleData' => $articleData,
+        ]);
+    }
 
 
     
@@ -89,35 +202,4 @@ public function afficheRechercheAction(Request $request)
             'articles' => $articles,
         ]);
     }
-
-    /*public function test() {
-       
-        // Chargement du contenu du fichier JSON
-        $evaluationJson = file_get_contents('evaluation.json');
-        $evaluationData = json_decode($evaluationJson, true);
-
-        // Passer les évaluations à la vue recherche.html.twig
-        return $this->render('recherche.html.twig', [
-            'articles' => $articles,
-            'evaluationData' => $evaluationData,
-        ]);
-    }*/
-
-
-       /**
-     * @Route("/recherche", name="recherche")
-     */
-   /* public function evaluationArticles(SerializerInterface $serializer): Response
-    {
-        $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
-		$articles = $query->getResult();
-
-        $jsonContent = file_get_contents('evaluation.json');
-        $evaluations = $serializer->deserialize($jsonContent, 'array', 'json');
-
-        return $this->render('recherche.html.twig', [
-            'evaluations' => $evaluations,
-            'articles' => $articles,
-        ]);
-    }*/
 }

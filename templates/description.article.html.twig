@@ -2,7 +2,7 @@
 {% block body %}
 	<header id="header" class="header-recherche">
 		<div id="logo">
-			<h1 class="site-title">PhoneHub</h1>
+			<h1 class="site-title">TechCase</h1>
 		</div>
 		<nav id="site-navigation" class="main-navigation navigation" role="navigation">
 			<button class="menu-toggle" aria-controls="site-navigation" aria-expanded="false">
@@ -40,7 +40,7 @@
 		<div class="col-full">
 			<header class="entry-header">
 
-				<h1 class="entry-title">Article</h1>
+				<h1 class="entry-title">{{article.category}}</h1>
 			</header>
 
 			<!-- .entry-header -->
@@ -50,81 +50,100 @@
 						<img src="{{ article.image }}" class="card-image" alt="poster_2_up"/>
 					</div>
 					<div class="pageArticle2">
-						<p>{{ article.titre }}</p>
-						<p>
-							<strong>{{ article.prix }}
-								€</strong>
-						</p>
+						<div>
+							<p>
+								<strong>Produit :</strong>
+								{{ article.titre }}</p>
+							<p>
+								<strong>Prix :</strong>
+								{{ article.prix }}
+								€
+							</p>
+							<p>
+								<strong>Référence du produit :</strong>
+								{{ article.id }}</p>
+							{% if article.id is defined and article.id in articleData|keys %}
+							<p title="Nombre de votes : {{ articleData[article.id]['nbUsersVotes'] }}">
+								<strong>Moyenne du produit :</strong>
+								{{ articleData[article.id]['average'] }} / 5</p>
+							{% endif %}
+						</div>
+						{% if article.category is same as("Collaboration") %}
+							<div class="infos-complementaires-article">
+								<h3 class="infos-complementaires-text">Informations complementaires :</h3>
+								{% if article.artiste is defined and article.artiste is not empty%}
+									<p>
+										<strong>Artiste :</strong>
+										{{ article.artiste }}</p>
+								{% endif %}
+								{% if article.entreprise is defined and article.entreprise is not empty%}
+									<p>
+										<strong>Entreprise :</strong>
+										{{ article.entreprise }}</p>
+								{% endif %}
+								{% if article.personnage is defined and article.personnage is not empty%}
+									<p>
+										<strong>Personnage :</strong>
+										{{ article.personnage }}</p>
+								{% endif %}
+								{% if article.univers is defined and article.univers is not empty%}
+									<p>
+										<strong>Univers :</strong>
+										{{ article.univers }}</p>
+								{% endif %}
+								{% if article.Collection is defined and article.collection is not empty%}
+									<p>
+										<strong>Collection :</strong>
+										{{ article.collection }}</p>
+								{% endif %}
+							</div>
+						{% endif %}
 						<a href="/ajouterLigne?id={{ article.id }}" class="btn btn-panier button product_type_simple add_to_cart_button">Mettre dans le panier</a>
 					</div>
 
 				</div>
-				<div id="rating-stars">
+				<div id="zone-evaluation">
 					{% if attribute(articleData, article.id) is defined %}
-						<p>Test 1</p>
 						{% set articleRatingData = attribute(articleData, article.id) %}
 						{% set maxRating = 5 %}
 						{% if not articleRatingData.hasVoted %}
 							<p>Évaluez cet article :</p>
-							{% for i in 1..maxRating %}
-								<form method="post" action="{{ path('evaluationArticle') }}">
-									<input type="hidden" name="articleId" value="{{ article.id }}">
-									<input type="hidden" name="rating" value="{{ i }}">
-									<button type="submit">{{ i }}</button>
-								</form>
-							{% endfor %}
+							<div class="rating-stars">
+								{% for i in 1..maxRating %}
+									<form method="post" action="{{ path('evaluationArticle') }}">
+										<input type="hidden" name="articleId" value="{{ article.id }}">
+										<input type="hidden" name="rating" value="{{ i }}">
+										<button type="submit">{{ i }}</button>
+									</form>
+								{% endfor %}
+							</div>
 						{% else %}
-							<p>Vous avez déjà évalué cet article. Votre évaluation :
-							</p>
-							{% set userRating = articleRatingData.userRating %}
-							{% for i in 1..maxRating %}
-								{% if i <= userRating %}
-									<i class="fas fa-star"></i>
-								{% else %}
-									<i class="far fa-plane"></i>
-								{% endif %}
-							{% endfor %}
+							<div class="zone-evaluation-user">
+								<p>Vous avez déjà évalué cet article.
+								</p>
+								<div class="evaluation-user">
+								<p>Votre évaluation :
+								</p>
+									{% set userRating = articleRatingData.userRating %}
+									{% for i in 1..maxRating %}
+										{% if i <= userRating %}
+											<i class="fas fa-star"></i>
+										{% else %}
+											<i class="far fa-star"></i>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
 						{% endif %}
-						{% else %}
-						<p>Test 2</p>
+					{% else %}
+						<p>Cet article n'est pas évaluable</p>
 					{% endif %}
 				</div>
 
-				<a href="/ajouterLigne?id={{ article.id }}" class="button product_type_simple add_to_cart_button rating-button">Mettre dans le panier</a>
-
 				<input type="hidden" id="article-id" value="{{ article.id }}"/>
-				<!-- Ajoutez un champ caché pour stocker l'ID de l'article -->
+			<!-- Ajoutez un champ caché pour stocker l'ID de l'article -->
 
 				<!-- .entry-header -->
-					<div class="entry-content"> <div class="woocommerce panier">
-						<div class="cart-collaterals">
-							<div class="cross-sells"></div>
-							<div class="cart_totals ">
-								<h2>Total de la commande</h2>
 
-								<table cellspacing="0">
-									<tbody>
-										<tr class="cart-subtotal">
-											<th>Sous-total</th>
-										</tr>
-										<tr class="shipping">
-											<th>Frais de port</th>
-											<td>Gratuit</td>
-										</tr>
-										<tr class="order-total">
-											<th>Total</th>
-										</tr>
-									</tbody>
-								</strong>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="wc-proceed-to-checkout">
-					<a href="/commanderPanier" class="checkout-button button alt wc-forward">Effectuer la
-																																																																																	commande</a>
-				</div>
 			</div>
-		</div>
-	</div>
-</div></div><!-- .col-full --></div><!-- #content -->{% endblock %}
+		</div><!-- .col-full --></div><!-- #content -->{% endblock %}
