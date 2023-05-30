@@ -44,6 +44,20 @@ class DefaultController extends AbstractController
         //]);
 		return $this->redirectToRoute('afficheRecherche');
     }
+
+	/**
+     * @Route("/vote/{id}", name="submit_vote", methods={"POST"})
+     */
+    public function submitVote(Request $request, SessionInterface $session, $id): Response
+    {
+        $rating = $request->request->get('rating');
+        $votedArticles = $session->get('voted_articles', []);
+        if (!in_array($id, $votedArticles)) {
+            $votedArticles[] = $id;
+            $session->set('voted_articles', $votedArticles);
+        }
+        return $this->redirectToRoute('description_article', ['id' => $id]);
+    }
 	
     /**
      * @Route("/test1", name="test1")

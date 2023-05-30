@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="article_type", type="string")
- * @ORM\DiscriminatorMap({"article" = "Article", "livre" = "Livre", "musique" = "Musique"})
+ * @ORM\DiscriminatorMap({"article" = "Article", "livre" = "Livre", "musique" = "Musique", "articlecollaboration" = "ArticleCollaboration"})
  */
 class Article
 {
@@ -50,6 +50,20 @@ class Article
      * @ORM\Column(name="image", type="string")
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasVoted = false;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category", type="string")
+     */
+    private $category = "Aucune";
+    
+
 
     /**
      * Set id
@@ -170,6 +184,54 @@ class Article
     public function getImage()
     {
         return $this->image;
+    }
+
+     /**
+     * Get hasVoted
+     *
+     * @return string
+     */
+    public function getHasVoted()
+    {
+        return $this->hasVoted;
+    }
+
+    /**
+     * Set hasVoted
+     *
+     * @param string $hasVoted
+     *
+     * @return Article
+     */
+    public function setHasVoted($hasVoted)
+    {
+        $this->hasVoted = $hasVoted;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return Article
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }
 
