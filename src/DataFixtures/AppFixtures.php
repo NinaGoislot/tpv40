@@ -233,11 +233,13 @@ class AppFixtures extends Fixture
                                 // Génère des valeurs aléatoire pour la moyenne et le nombre de votant
                                 $average = mt_rand(10, 50) / 10.0; // Moyenne aléatoire entre 1 et 5, décimales comprises
                                 $nbUsersVotes = mt_rand(5, 200); // Nombre aléatoire d'utilisateurs ayant voté entre 5 et 200
+								$idArticle = (string) $child_2->ASIN;
 								
+								$evaluation = []; // Nouveau tableau $evaluation à chaque itération
 
                                 // Création du tableau data d'un article
-                                $evaluation = [
-                                    'idArticle' => (string) $child_2->ASIN,
+                                $evaluation[$idArticle] = [
+                                    'idArticle' => $idArticle,
                                     'average' => $average,
                                     'nbUsersVotes' => $nbUsersVotes,
 									'userRating' => 0,

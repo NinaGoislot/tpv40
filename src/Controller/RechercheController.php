@@ -29,45 +29,47 @@ class RechercheController extends AbstractController
 	}
 	
     /**
-     * @Route("/afficheRecherche", name="afficheRecherche")
-     */
-    public function afficheRechercheAction(Request $request)
-    {
-		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
-		$articles = $query->getResult();
+ * @Route("/afficheRecherche", name="afficheRecherche")
+ */
+public function afficheRechercheAction(Request $request)
+{
+    $query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a");
+    $articles = $query->getResult();
 
-        $evaluationsFilePath = '../data/evaluation.json';
+    $evaluationsFilePath = '../data/evaluation.json';
 
-        if (file_exists($evaluationsFilePath)) {
-            $evaluationsContent = file_get_contents($evaluationsFilePath);
+    if (file_exists($evaluationsFilePath)) {
+        $evaluationsContent = file_get_contents($evaluationsFilePath);
 
-            // Décoder le contenu JSON en tableau associatif
-            $evaluations = json_decode($evaluationsContent, true);
+        // Décoder le contenu JSON en tableau associatif
+        $evaluations = json_decode($evaluationsContent, true);
 
-            // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
-            $articleData = [];
+        // Créer un tableau associatif pour stocker les moyennes et le nombre de votants par article
+        $articleData = [];
 
-            foreach ($evaluations as $evaluation) {
-                $articleId = $evaluation['idArticle'];
-                $average = $evaluation['average'];
-                $nbUsersVotes = $evaluation['nbUsersVotes'];
+        foreach ($evaluations as $evaluation) {
+            foreach ($evaluation as $articleId => $data) {
+            $average = $data['average'];
+            $nbUsersVotes = $data['nbUsersVotes'];
 
-                // Stocker les données dans le tableau associatif
-                $articleData[$articleId] = [
-                    'average' => $average,
-                    'nbUsersVotes' => $nbUsersVotes,
-                ];
-            }
-        } else {
-            // Le fichier evaluations.json n'existe pas
-            $articleData = [];
+            // Stocker les données dans le tableau associatif avec l'id de l'article comme clé
+            $articleData[$articleId] = [
+                'average' => $average,
+                'nbUsersVotes' => $nbUsersVotes,
+            ];
         }
-
-		return $this->render('recherche.html.twig', [
-           'articles' => $articles,
-           'articleData' => $articleData,
-        ]);
+        }
+    } else {
+        // Le fichier evaluations.json n'existe pas
+        $articleData = [];
     }
+
+    return $this->render('recherche.html.twig', [
+        'articles' => $articles,
+        'articleData' => $articleData,
+    ]);
+}
+
 
     
 	
